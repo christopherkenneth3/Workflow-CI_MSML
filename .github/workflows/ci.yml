@@ -1,41 +1,29 @@
-name: MLflow CI Pipeline
+name: mlflow-ci
 
 on:
   push:
-    branches: [ main ]
-  workflow_dispatch:
+    branches: [ "main" ]
 
 jobs:
-  mlflow-ci:
+  train:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Run actions/checkout@v3
+      - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up Python 3.11.2
+      - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.11.2'
-
-      - name: Check Env
-        run: |
-          python --version
-          pip --version
-          echo "Working directory:"
-          pwd
-          ls -la
+          python-version: "3.11"
 
       - name: Install dependencies
         run: |
-          pip install mlflow scikit-learn pandas numpy
+          python -m pip install --upgrade pip
+          pip install mlflow scikit-learn pandas kagglehub
 
-      - name: Run mlflow project
+      - name: Run MLflow project
         run: |
-          cd MLProject
-          mlflow run .
+          mlflow run MLProject
 
-      - name: Get latest MLflow run_id
-        run: |
-          echo "Latest MLflow Run ID:"
-          ls mlruns/*/*/meta.yaml | tail -n 1
+    

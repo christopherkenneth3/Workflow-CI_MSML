@@ -1,6 +1,4 @@
-name: glass
-
-conda_env: conda.yaml
+name: glass-classification
 
 entry_points:
   main:
