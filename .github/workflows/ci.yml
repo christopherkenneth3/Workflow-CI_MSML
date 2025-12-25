@@ -28,13 +28,13 @@ jobs:
         shell: bash -l {0}
         run: |
           pip install mlflow==3.8.0
-          
+
       - name: Run MLflow Project (re-train)
         shell: bash -l {0}
         env:
           MLFLOW_TRACKING_URI: file:${{ github.workspace }}/mlruns
         run: |
-          mlflow run ./MLProject -e main --experiment-Christopher-MSML-glass
+          mlflow run ./MLProject -e main --experiment-name Christopher-MSML-glass
 
       - name: Show mlruns result (debug)
         shell: bash -l {0}
