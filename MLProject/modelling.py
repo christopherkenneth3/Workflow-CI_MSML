@@ -12,8 +12,7 @@ from sklearn.metrics import accuracy_score, classification_report
 # ======================
 # MLflow CONFIG
 # ======================
-mlflow.set_tracking_uri("http://127.0.0.1:5000")
-mlflow.set_experiment("Glass Classification Autolog")
+
 
 # AKTIFKAN AUTOLOG
 mlflow.sklearn.autolog()
