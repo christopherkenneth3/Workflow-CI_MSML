@@ -1,0 +1,41 @@
+name: MLflow CI Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  mlflow-ci:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Run actions/checkout@v3
+        uses: actions/checkout@v3
+
+      - name: Set up Python 3.11.2
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11.2'
+
+      - name: Check Env
+        run: |
+          python --version
+          pip --version
+          echo "Working directory:"
+          pwd
+          ls -la
+
+      - name: Install dependencies
+        run: |
+          pip install mlflow scikit-learn pandas numpy
+
+      - name: Run mlflow project
+        run: |
+          cd MLProject
+          mlflow run .
+
+      - name: Get latest MLflow run_id
+        run: |
+          echo "Latest MLflow Run ID:"
+          ls mlruns/*/*/meta.yaml | tail -n 1
